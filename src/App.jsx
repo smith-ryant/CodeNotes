@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { supabase } from "./supabaseClient";
-import Home from "./components/Home";
+import Home from "../src/components/HomePage/Home";
 import CodeNotes from "./components/CodeNotes";
+import Header from "./components/Header/Header"; // Import Header component
+import { AuthProvider } from "../src/components/store/authContext"; // Import AuthProvider
+import "./App.css"; // Import global styles
 
 function App() {
   const [userProfile, setUserProfile] = useState(null);
@@ -28,19 +31,21 @@ function App() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-      if (error) {
-        console.error("Error checking user:", error.message);
-        // Optionally redirect to login if the session is expired
-        // You can use a navigate function or set a state to show login
-      } else if (user) {
-        console.log("User logged in:", user);
-        fetchUserProfile(user); // Pass the user object to fetchUserProfile
-      } else {
-        console.log("No user logged in");
+      try {
+        const {
+          data: { user },
+          error,
+        } = await supabase.auth.getUser();
+        if (error) {
+          console.error("Error checking user:", error.message);
+        } else if (user) {
+          console.log("User logged in:", user);
+          await fetchUserProfile(user);
+        } else {
+          console.log("No user logged in");
+        }
+      } catch (err) {
+        console.error("An unexpected error occurred:", err);
       }
     };
 
@@ -64,38 +69,33 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            {userProfile && (
-              <li>
-                <Link to="/codenotes">CodeNotes</Link>
-              </li>
-            )}
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home onLogin={fetchUserProfile} />} />
-          <Route
-            path="/codenotes"
-            element={
-              userProfile ? (
-                <CodeNotes
-                  userProfile={userProfile}
-                  handleLogout={handleLogout}
-                />
-              ) : (
-                <h2>Please log in to access your notes.</h2>
-              )
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      {/* Wrap with AuthProvider */}
+      <Router>
+        <div className="App">
+          <Header /> {/* Render Header component */}
+          <div className="content">
+            {/* Add content class to provide padding for the header */}
+            <Routes>
+              <Route path="/" element={<Home onLogin={fetchUserProfile} />} />
+              <Route
+                path="/codenotes"
+                element={
+                  userProfile ? (
+                    <CodeNotes
+                      userProfile={userProfile}
+                      handleLogout={handleLogout}
+                    />
+                  ) : (
+                    <h2>Please log in to access your notes.</h2>
+                  )
+                }
+              />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

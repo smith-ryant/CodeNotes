@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
-import CreateNoteButton from "./CreateNoteButton";
-import NoteForm from "./NoteForm";
+import CreateNoteButton from "./Notes/CreateNoteButton";
+import NoteForm from "./Notes/NoteForm";
 
 const CodeNotes = ({ userProfile, handleLogout }) => {
   const [showNoteForm, setShowNoteForm] = useState(false);

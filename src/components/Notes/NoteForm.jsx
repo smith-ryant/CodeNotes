@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { supabase } from "../supabaseClient";
+// code-notes-app/src/components/Notes/NoteForm.jsx
 
-const NoteForm = () => {
+import React, { useState, useEffect } from "react";
+import { supabase } from "../../supabaseClient"; // Adjust the path as needed
+
+const NoteForm = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
-  const [userId, setUserId] = useState(null); // Store user ID
+  const [userId, setUserId] = useState(null);
 
-  // Fetch user ID when the component mounts
   useEffect(() => {
     const fetchUser = async () => {
       const {
@@ -17,7 +18,7 @@ const NoteForm = () => {
       if (error) {
         console.error("Error fetching user:", error.message);
       } else if (user) {
-        setUserId(user.id); // Set user ID if available
+        setUserId(user.id);
       }
     };
 
@@ -30,7 +31,7 @@ const NoteForm = () => {
     if (!userId) {
       console.error("User not logged in");
       alert("Please log in to save notes.");
-      return; // Exit if user is not logged in
+      return;
     }
 
     const { error } = await supabase
@@ -41,7 +42,6 @@ const NoteForm = () => {
       console.error("Error saving note:", error.message);
     } else {
       console.log("Note saved successfully");
-      // Reset form
       setTitle("");
       setContent("");
       setIsPrivate(false);
@@ -49,30 +49,33 @@ const NoteForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
-      />
-      <label>
+    <div>
+      <form onSubmit={handleSubmit}>
         <input
-          type="checkbox"
-          checked={isPrivate}
-          onChange={(e) => setIsPrivate(e.target.checked)}
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
         />
-        Private
-      </label>
-      <button type="submit">Save Note</button>
-    </form>
+        <textarea
+          placeholder="Content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          required
+        />
+        <label>
+          <input
+            type="checkbox"
+            checked={isPrivate}
+            onChange={(e) => setIsPrivate(e.target.checked)}
+          />
+          Private
+        </label>
+        <button type="submit">Save Note</button>
+      </form>
+      <button onClick={onClose}>Close</button>
+    </div>
   );
 };
 
