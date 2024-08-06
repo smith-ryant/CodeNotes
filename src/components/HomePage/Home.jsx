@@ -1,29 +1,44 @@
-// code-notes-app/src/components/Home.jsx
-
 import React, { useState } from "react";
+import { useAuth } from "../store/authContext";
 import "./Home.css";
 
-const Home = ({ onLogin }) => {
+const Home = () => {
+  const { login, register, fetchUserProfile } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
     setUsername("");
     setEmail("");
     setPassword("");
+    setMessage("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isLogin) {
-      // Implement login logic
-      console.log("Logging in:", username, password);
+      try {
+        await login(email, password);
+        setMessage("Login successful!");
+        fetchUserProfile();
+      } catch (error) {
+        setMessage(`Error logging in: ${error.message}`);
+      }
     } else {
-      // Implement registration logic
-      console.log("Registering:", username, email, password);
+      try {
+        await register(email, password, username);
+        setMessage("Sign up successful! Please log in.");
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setIsLogin(true);
+      } catch (error) {
+        setMessage(`Error signing up: ${error.message}`);
+      }
     }
   };
 
@@ -43,18 +58,16 @@ const Home = ({ onLogin }) => {
             required
           />
         </div>
-        {!isLogin && (
-          <div className="input-group">
-            <input
-              className="input-field"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-        )}
+        <div className="input-group">
+          <input
+            className="input-field"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
         <div className="input-group">
           <input
             className="input-field"
@@ -69,6 +82,9 @@ const Home = ({ onLogin }) => {
           {isLogin ? "Login" : "Sign Up"}
         </button>
       </form>
+
+      {message && <p className="auth-message">{message}</p>}
+
       <button onClick={toggleAuthMode} className="switch-button">
         {isLogin ? "Need to Register?" : "Switch to Login"}
       </button>

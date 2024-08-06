@@ -1,21 +1,29 @@
-// code-notes-app/src/components/Header/Header.jsx
+// src/components/Header/Header.jsx
 
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-
-import AuthContext from "../store/authContext"; // Adjust the path if needed
-import logo from "../../assets/react.svg"; // Adjust the path for your logo file
+import AuthContext from "../store/authContext"; // Ensure correct path
+import logo from "../../assets/react.svg"; // Correct path for your logo file
 import logo2 from "../../assets/vite.svg";
 
 const Header = () => {
   const { state, dispatch } = useContext(AuthContext);
 
-  const styleActiveLink = ({ isActive }) => {
-    return {
-      color: isActive ? "#f57145" : "",
-    };
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      console.log("Logged out successfully");
+      dispatch({ type: "LOGOUT" });
+    } catch (error) {
+      console.error("Logout error:", error.message);
+    }
   };
+
+  const styleActiveLink = ({ isActive }) => ({
+    color: isActive ? "#f57145" : "#f0f0f0",
+  });
 
   return (
     <header className="header">
@@ -43,10 +51,7 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <button
-                className="logout-btn"
-                onClick={() => dispatch({ type: "LOGOUT" })}
-              >
+              <button className="logout-btn" onClick={handleLogout}>
                 Logout
               </button>
             </li>

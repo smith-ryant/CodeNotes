@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { supabase } from "../supabaseClient";
 import CreateNoteButton from "./Notes/CreateNoteButton";
 import NoteForm from "./Notes/NoteForm";
 

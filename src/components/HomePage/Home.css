@@ -60,7 +60,7 @@ body {
 }
 
 .input-field:focus {
-  border-color: #f57145; /* Highlight border on focus */
+  border-color: #f0f0f0; /* Highlight border on focus */
 }
 
 /* Button styling */

@@ -1,43 +1,12 @@
 import React, { useState } from "react";
-import { supabase } from "../supabaseClient";
+import { useAuth } from "../components/store/authContext";
 
 const LoginForm = () => {
+  const { login, register } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(""); // New input for username
+  const [username, setUsername] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
-
-  const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      console.error("Error logging in:", error.message);
-    } else {
-      console.log("Successfully logged in");
-    }
-  };
-
-  const handleRegister = async () => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      console.error("Error registering:", error.message);
-    } else {
-      console.log("Successfully registered");
-
-      // Create a user profile after successful registration
-      const { error: profileError } = await supabase
-        .from("user_profiles")
-        .insert([{ user_id: data.user.id, username }]);
-
-      if (profileError) {
-        console.error("Error creating profile:", profileError.message);
-      } else {
-        console.log("Profile created successfully");
-      }
-    }
-  };
 
   return (
     <div>
@@ -62,7 +31,13 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={isRegistering ? handleRegister : handleLogin}>
+      <button
+        onClick={
+          isRegistering
+            ? () => register(email, password, username)
+            : () => login(email, password)
+        }
+      >
         {isRegistering ? "Register" : "Login"}
       </button>
       <button onClick={() => setIsRegistering(!isRegistering)}>
