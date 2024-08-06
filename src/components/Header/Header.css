@@ -25,7 +25,7 @@
   width: auto; /* Maintain aspect ratio */
   max-height: 30px; /* Constrain max height */
   max-width: 30px; /* Constrain max width */
-  margin-right: 10px;
+  margin-right: 20px;
   object-fit: contain; /* Ensure it fits within the set dimensions */
 }
 
@@ -35,7 +35,7 @@
   width: auto !important;
   max-height: 30px !important;
   max-width: 30px !important;
-  margin-right: 10px;
+  margin-right: 25px;
 }
 
 /* Logo and Title Container */
@@ -50,7 +50,6 @@
 /* Logo Styling */
 .logo {
   height: 30px;
-  margin-right: 10px;
 }
 
 /* Main Navigation */
@@ -124,5 +123,58 @@
 
   .logout-btn {
     margin-top: 10px;
+  }
+}
+
+/* Add this CSS to your existing file */
+
+/* Centering the button in the login-container */
+.login-container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  height: 100vh; /* Full viewport height */
+  margin: 0 auto; /* Center the container if there's additional horizontal space */
+  text-align: center; /* Align text to center */
+  max-width: 400px; /* Optional: constrain the max width */
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #004050; /* Optional: Background color for the container */
+  border-radius: 10px; /* Optional: Rounded corners */
+}
+
+/* Ensure the login button is centered */
+form {
+  width: 100%;
+}
+
+/* Center the button specifically */
+.login-btn {
+  width: 100%; /* Make the button take full width of its container */
+  max-width: 200px; /* Optional: Limit the max width of the button */
+  margin: 20px auto; /* Center the button with top and bottom margin */
+  padding: 10px;
+  background-color: #00606f; /* Your preferred button color */
+  border: none;
+  border-radius: 5px; /* Rounded corners for the button */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #005055; /* Darker shade on hover */
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 10px; /* Adjust padding for smaller screens */
+    width: 90%; /* Allow more width on smaller screens */
+  }
+
+  .login-btn {
+    max-width: 100%; /* Allow full width on smaller screens */
   }
 }

@@ -18,10 +18,11 @@ body {
   justify-content: center;
   background-color: #002b36; /* Background color for the container */
   border-radius: 20px; /* Rounded corners */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow for depth */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Increased shadow for depth */
   padding: 40px; /* Space around the container */
   max-width: 400px; /* Maximum width for responsiveness */
   width: 100%; /* Full width within the max-width */
+  margin: 20px; /* Center the container vertically if necessary */
 }
 
 /* Title styling */
@@ -35,6 +36,9 @@ body {
 /* Form styling */
 .auth-form {
   width: 100%; /* Full width within the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center form contents */
 }
 
 /* Input group styling */
@@ -45,8 +49,7 @@ body {
 
 /* Input field styling */
 .input-field {
-  justify-content: center; /* Center the input fields */
-  width: 90%; /* Full width for inputs */
+  width: 100%; /* Full width for inputs */
   padding: 12px;
   font-size: 1rem;
   border: none;
@@ -65,10 +68,10 @@ body {
 
 /* Button styling */
 .auth-button {
-  width: 65%; /* Full width for buttons */
+  width: 80%; /* Relative width for buttons */
   padding: 12px;
   background-color: #094554; /* Primary button color */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -77,38 +80,41 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   outline: none; /* Remove outline on focus */
+  margin-top: 20px; /* Space above the button */
+  max-width: 200px; /* Limit the max width to avoid over-stretching */
 }
 
 .auth-button:hover {
   background-color: #62767b; /* Darker on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow for depth */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
+
 .auth-button:focus {
   outline: none; /* Remove outline on focus */
 }
 
 /* Switch button styling */
 .switch-button {
-  width: 45%; /* Full width for buttons */
+  width: 80%; /* Relative width for buttons */
   padding: 12px;
-  background-color: #094554; /* Primary button color */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow for depth */
-  color: #ffffff;
-  border: none;
+  background-color: transparent; /* Transparent background for contrast */
+  box-shadow: none; /* No shadow for secondary button */
+  color: #f57145;
+  border: 1px solid #f57145; /* Border to match text color */
   border-radius: 5px;
-  font-size: 0.8rem;
-  text-decoration: underline;
+  font-size: 0.9rem;
   font-weight: bold; /* Bold text for button */
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 20px; /* Space above the button */
-  outline: none; /* Remove outline on focus */
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 15px; /* Space above the button */
+  max-width: 200px; /* Limit the max width */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove text underline */
 }
 
 .switch-button:hover {
-  background-color: #62767b; /* Darker on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Shadow for depth */
-  color: #f0f0f0; /* Change color on hover */
+  background-color: #f57145; /* Darker on hover */
+  color: #ffffff; /* Change text color on hover */
 }
 
 .switch-button:focus {

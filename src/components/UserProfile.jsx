@@ -1,3 +1,5 @@
+// code-notes-app/src/components/UserProfile.jsx
+
 import React, { useEffect } from "react";
 import { useAuth } from "../components/store/authContext";
 

@@ -1,3 +1,5 @@
+// code-notes-app/src/components/Auth.jsx
+
 import React, { useState } from "react";
 import { useAuth } from "./store/authContext";
 
