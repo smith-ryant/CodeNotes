@@ -2,7 +2,7 @@
 // Date/Time: 2024-08-06
 
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom"; // Import useLocation
 import "./Header.css";
 import AuthContext from "../store/authContext"; // Importing authentication context
 import logo from "../../assets/react.svg"; // Path for the logo image
@@ -11,6 +11,7 @@ import { supabase } from "../../supabaseClient"; // Importing the supabase clien
 
 const Header = () => {
   const { state, dispatch } = useContext(AuthContext);
+  const location = useLocation(); // Get the current location
 
   const handleLogout = async () => {
     try {
@@ -37,26 +38,36 @@ const Header = () => {
       <nav>
         {state.token ? (
           <ul className="main-nav">
-            <li>
-              <NavLink style={styleActiveLink} to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink style={styleActiveLink} to="/profile">
-                Profile
-              </NavLink>
-            </li>
-            <li>
-              <NavLink style={styleActiveLink} to="/form">
-                Add Post
-              </NavLink>
-            </li>
-            <li>
-              <button className="logout-btn" onClick={handleLogout}>
-                Logout
-              </button>
-            </li>
+            {location.pathname !== "/codenotes" ? ( // Conditional rendering based on location
+              <>
+                <li>
+                  <NavLink style={styleActiveLink} to="/">
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink style={styleActiveLink} to="/profile">
+                    Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink style={styleActiveLink} to="/form">
+                    Add Post
+                  </NavLink>
+                </li>
+                <li>
+                  <button className="logout-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li>
+                <NavLink style={styleActiveLink} to="/">
+                  Home
+                </NavLink>
+              </li>
+            )}
           </ul>
         ) : (
           <ul className="main-nav">

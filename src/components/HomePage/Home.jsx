@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../store/authContext";
 import "./Home.css";
 import Spinner from "../Spinner/Spinner";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Home = () => {
   const { state, login, register, logout } = useAuth();
@@ -14,6 +15,7 @@ const Home = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
@@ -46,6 +48,7 @@ const Home = () => {
     }
 
     setLoading(true); // Start loading
+    setMessage(""); // Clear message on submit
     console.log("Form submitted:", { email, isLogin });
 
     try {
@@ -54,6 +57,8 @@ const Home = () => {
         if (result.success) {
           console.log("Login successful:", email);
           setMessage("Login successful!");
+          setTimeout(() => setMessage(""), 3000); // Clear message after 3 seconds
+          navigate("/codenotes"); // Redirect to CodeNotes page
         }
       } else {
         const result = await register(email, password, username);
@@ -150,7 +155,10 @@ const Home = () => {
         </div>
       )}
 
-      {message && <p className="auth-message">{message}</p>}
+      {/* Conditionally render message only if it's not empty */}
+      {message && !state.isAuthenticated && (
+        <p className="auth-message">{message}</p>
+      )}
 
       {!state.isAuthenticated && (
         <button onClick={toggleAuthMode} className="switch-button">
