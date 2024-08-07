@@ -1,0 +1,14 @@
+/* code-notes-app/src/components/MarkdownEditor/MarkdownEditor.css */
+/* Date & Time: 2024-08-06 @ 23:30 */
+
+.markdown-editor {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.react-markdown-editor-lite {
+  border: none;
+  box-shadow: none;
+}

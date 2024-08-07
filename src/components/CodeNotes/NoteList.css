@@ -1,0 +1,47 @@
+/* code-notes-app/src/components/CodeNotes/NotesList.css */
+/* Date & Time: 2024-08-06 @ 22:15 */
+
+.notes-list {
+  width: 25%; /* 25% of the screen */
+  background-color: #f0f0f0; /* Light background for contrast */
+  padding: 20px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-right: 1px solid #ccc; /* Divider line */
+  height: calc(100vh - 80px); /* Full height minus header */
+  box-sizing: border-box; /* Include padding and border in width/height */
+}
+
+.note-item {
+  padding: 10px 0;
+  color: #002b36; /* Dark text color */
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd; /* Divider between notes */
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.note-item:hover {
+  background-color: #e0e0e0; /* Slightly darker background on hover */
+}
+
+.add-note-button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #094554; /* Primary button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-note-button:hover {
+  background-color: #0b666e; /* Darker shade on hover */
+}
+
+.add-note-button:focus {
+  outline: none;
+}

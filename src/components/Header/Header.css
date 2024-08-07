@@ -1,8 +1,9 @@
 /* code-notes-app/src/components/Header/Header.css */
+/* Date & Time: 2024-08-06 @ 21:00 */
 
 /* Header Styling */
 .header {
-  position: fixed;
+  position: fixed; /* Fix the header at the top */
   top: 0;
   left: 0;
   width: 100%;
@@ -14,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1000;
+  z-index: 1000; /* Ensure the header is above other elements */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* Include padding in width/height */
 }
