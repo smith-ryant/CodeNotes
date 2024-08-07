@@ -1,8 +1,8 @@
 // code-notes-app/src/components/Header/Header.jsx
-// Date/Time: 2024-08-06
+// Date & Time: 2024-08-06 @ 21:00
 
 import React, { useContext } from "react";
-import { NavLink, useLocation } from "react-router-dom"; // Import useLocation
+import { NavLink, useLocation } from "react-router-dom"; // Import useLocation hook
 import "./Header.css";
 import AuthContext from "../store/authContext"; // Importing authentication context
 import logo from "../../assets/react.svg"; // Path for the logo image
@@ -11,7 +11,7 @@ import { supabase } from "../../supabaseClient"; // Importing the supabase clien
 
 const Header = () => {
   const { state, dispatch } = useContext(AuthContext);
-  const location = useLocation(); // Get the current location
+  const location = useLocation(); // Get the current path
 
   const handleLogout = async () => {
     try {
@@ -36,23 +36,18 @@ const Header = () => {
         <h2>CodeNotes</h2>
       </div>
       <nav>
-        {state.token ? (
-          <ul className="main-nav">
-            {location.pathname !== "/codenotes" ? ( // Conditional rendering based on location
+        <ul className="main-nav">
+          <li>
+            <NavLink style={styleActiveLink} to="/">
+              Home
+            </NavLink>
+          </li>
+          {state.isAuthenticated &&
+            location.pathname !== "/codenotes" && ( // Check for authenticated state and path
               <>
                 <li>
-                  <NavLink style={styleActiveLink} to="/">
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink style={styleActiveLink} to="/profile">
-                    Profile
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink style={styleActiveLink} to="/form">
-                    Add Post
+                  <NavLink style={styleActiveLink} to="/codenotes">
+                    CodeNotes
                   </NavLink>
                 </li>
                 <li>
@@ -61,28 +56,8 @@ const Header = () => {
                   </button>
                 </li>
               </>
-            ) : (
-              <li>
-                <NavLink style={styleActiveLink} to="/">
-                  Home
-                </NavLink>
-              </li>
             )}
-          </ul>
-        ) : (
-          <ul className="main-nav">
-            <li>
-              <NavLink style={styleActiveLink} to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink style={styleActiveLink} to="/auth">
-                Login or Sign Up
-              </NavLink>
-            </li>
-          </ul>
-        )}
+        </ul>
       </nav>
     </header>
   );

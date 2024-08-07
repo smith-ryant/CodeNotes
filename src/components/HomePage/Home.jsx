@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../store/authContext";
 import "./Home.css";
 import Spinner from "../Spinner/Spinner";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { state, login, register, logout } = useAuth();
@@ -15,7 +15,7 @@ const Home = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const toggleAuthMode = () => {
     setIsLogin(!isLogin);
@@ -31,7 +31,7 @@ const Home = () => {
   };
 
   const validatePassword = (password) => {
-    return password.length >= 8; // Ensure minimum length
+    return password.length >= 8;
   };
 
   const handleSubmit = async (e) => {
@@ -47,18 +47,20 @@ const Home = () => {
       return;
     }
 
-    setLoading(true); // Start loading
-    setMessage(""); // Clear message on submit
+    setLoading(true);
+    setMessage("");
     console.log("Form submitted:", { email, isLogin });
 
     try {
       if (isLogin) {
-        const result = await login(email, password); // Call the login function
+        const result = await login(email, password);
         if (result.success) {
           console.log("Login successful:", email);
           setMessage("Login successful!");
-          setTimeout(() => setMessage(""), 3000); // Clear message after 3 seconds
-          navigate("/codenotes"); // Redirect to CodeNotes page
+          setTimeout(() => {
+            setMessage("");
+            navigate("/codenotes");
+          }, 1000);
         }
       } else {
         const result = await register(email, password, username);
@@ -75,13 +77,13 @@ const Home = () => {
       setMessage(`Error: ${error.message}`);
       console.error("Submission error:", error.message);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
       console.log("Finished login/register process");
     }
   };
 
   const handleLogout = async () => {
-    await logout(); // Use the logout function from context
+    await logout();
     setMessage("You have been logged out.");
   };
 
@@ -91,9 +93,7 @@ const Home = () => {
         "User is authenticated, stopping spinner and showing logout."
       );
       setLoading(false);
-      setMessage(
-        "Welcome back, " + (state.userProfile?.username || email) + "!"
-      );
+      setMessage(`Welcome back, ${state.userProfile?.username || email}!`);
     } else {
       console.log("User is not authenticated, showing login/signup form.");
     }
@@ -155,7 +155,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Conditionally render message only if it's not empty */}
       {message && !state.isAuthenticated && (
         <p className="auth-message">{message}</p>
       )}

@@ -16,8 +16,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/codenotes" element={<CodeNotes />} />{" "}
-            {/* Add the CodeNotes route */}
+            <Route path="/codenotes" element={<CodeNotes />} />
           </Routes>
         </div>
       </Router>
