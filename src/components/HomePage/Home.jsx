@@ -1,5 +1,5 @@
 // code-notes-app/src/components/HomePage/Home.jsx
-// Date and Time: 2024-08-06 17:30:00
+// Date and Time: 2024-08-07 22:00:00
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../store/authContext";
@@ -85,6 +85,7 @@ const Home = () => {
   const handleLogout = async () => {
     await logout();
     setMessage("You have been logged out.");
+    navigate("/"); // Ensure we navigate to the home page on logout
   };
 
   useEffect(() => {
@@ -93,7 +94,11 @@ const Home = () => {
         "User is authenticated, stopping spinner and showing logout."
       );
       setLoading(false);
-      setMessage(`Welcome back, ${state.userProfile?.username || email}!`);
+      if (state.userProfile?.username) {
+        setMessage(`Welcome, ${state.userProfile.username}!`);
+      } else {
+        setMessage(`Welcome, ${email}!`);
+      }
     } else {
       console.log("User is not authenticated, showing login/signup form.");
     }
@@ -103,7 +108,7 @@ const Home = () => {
     <div className="auth-container">
       <h1 className="auth-title">
         {state.isAuthenticated
-          ? `Welcome ${state.userProfile?.username || "Back!"}`
+          ? `Welcome, ${state.userProfile?.username || "Back!"}`
           : isLogin
           ? "Welcome Back!"
           : "Create An Account"}
@@ -148,7 +153,6 @@ const Home = () => {
         </form>
       ) : (
         <div>
-          <p>{message}</p>
           <button onClick={handleLogout} className="auth-button">
             Logout
           </button>

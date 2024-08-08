@@ -25,6 +25,7 @@ body {
   max-width: 400px; /* Maximum width for responsiveness */
   width: 100%; /* Full width within the max-width */
   margin: 20px; /* Center the container vertically if necessary */
+  text-align: center; /* Center text */
 }
 
 /* Title styling */
@@ -32,7 +33,6 @@ body {
   font-size: 2rem; /* Large title size */
   margin-bottom: 20px; /* Space below title */
   color: #f0f0f0;
-  text-align: center; /* Center text */
 }
 
 /* Form styling */
@@ -70,8 +70,8 @@ body {
 
 /* Button styling */
 .auth-button {
-  width: 80%; /* Relative width for buttons */
-  padding: 12px;
+  width: auto; /* Allow button to expand with text */
+  padding: 12px 24px; /* Add padding for better appearance */
   background-color: #094554; /* Primary button color */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
   color: #ffffff;
@@ -83,7 +83,7 @@ body {
   transition: background-color 0.3s;
   outline: none; /* Remove outline on focus */
   margin-top: 20px; /* Space above the button */
-  max-width: 200px; /* Limit the max width to avoid over-stretching */
+  max-width: 100%; /* Ensure the button does not exceed container width */
 }
 
 .auth-button:hover {
@@ -97,8 +97,8 @@ body {
 
 /* Switch button styling */
 .switch-button {
-  width: 80%; /* Relative width for buttons */
-  padding: 12px;
+  width: auto; /* Allow button to expand with text */
+  padding: 12px 24px; /* Add padding for better appearance */
   background-color: transparent; /* Transparent background for contrast */
   box-shadow: none; /* No shadow for secondary button */
   color: #f57145;
@@ -109,7 +109,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   margin-top: 15px; /* Space above the button */
-  max-width: 200px; /* Limit the max width */
+  max-width: 100%; /* Ensure the button does not exceed container width */
   text-align: center; /* Center text */
   text-decoration: none; /* Remove text underline */
 }
